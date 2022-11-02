@@ -13,9 +13,7 @@ public class Controller {
     @Autowired
     private UserService userService;
     @GetMapping("/user/{id}")
-    public UserDTO getUserById(@PathVariable int id)
-    {
-        System.out.println("hello");
+    public UserDTO getUserById(@PathVariable Integer id) throws Exception {
         System.out.println(userService.getUserDTO(id));
         return userService.getUserDTO(id);
     }

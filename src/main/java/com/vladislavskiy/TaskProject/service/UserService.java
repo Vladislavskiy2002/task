@@ -6,6 +6,6 @@ import org.springframework.stereotype.Service;
 
 public interface UserService {
     void createUser(User user);
-    UserDTO getUserDTO(int id);
+    UserDTO getUserDTO(Integer id) throws Exception;
     int getUserAge(User user);
 }

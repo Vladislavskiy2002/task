@@ -1,6 +1,7 @@
 package com.vladislavskiy.TaskProject.service.impl;
 
 import com.vladislavskiy.TaskProject.dto.UserDTO;
+import com.vladislavskiy.TaskProject.handler.UserNotFoundByIdException;
 import com.vladislavskiy.TaskProject.model.User;
 import com.vladislavskiy.TaskProject.repository.UserRepository;
 import com.vladislavskiy.TaskProject.service.UserService;
@@ -39,9 +40,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDTO getUserDTO(int id) {
-        LocalDate localDate = LocalDate.now();
-        User user = userRepository.findById(id).get();
+    public UserDTO getUserDTO(Integer id) throws Exception {
+//        LocalDate localDate = LocalDate.now();
+        User user;
+        if(userRepository.findById(id).isPresent())
+            user = userRepository.findById(id).get();
+        else
+            throw new UserNotFoundByIdException("USER NOT FOUND");
         UserDTO userDTO = new UserDTO();
         BeanUtils.copyProperties(user, userDTO);
         userDTO.setAge(getUserAge(user));
